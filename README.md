@@ -10,7 +10,7 @@
 * [Technologies](#technologies)
 
 ## General info 
-This work is part of a simultaneous EEG-fMRI study which includes more data that will be published elsewhere (for more information please see (https://github.com/JuliaSchraeder/SubconsciousBias)). 
+This work is part of a simultaneous EEG-fMRI study which includes more data that will be published elsewhere (for more information please see https://github.com/JuliaSchraeder/SubconsciousBias). 
 
 The study investigates on the topic of conscious and unconsonscious processing of emotional facial expressions by analyzing EEG data of 52 healthy participants. The experimental setup consists of a modified backward masked emotional conflict task, allowing to examine the effect of consciousness as well as the impact of emotional conflict on the processing of emotional facial expressions. Three different event-related potentials were used for analysis (P100/N170 for research on the effect of consciousness on emotional face processing, vMMN for the effect of emotional conflict). 
 
