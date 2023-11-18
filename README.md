@@ -38,7 +38,7 @@ Aiming to study the effect of emotional conflict on face processing, trials show
 
 ## Folder description 
 
-* `data` includes data used for LMM calculation, scalp topography maps and accuracy
+* `data` includes data used for LMM calculation, scalp topography maps, accuracy
 * `scripts` includes scripts used for EEG data, LMM calculation, scalp topography maps
 
 ## Technologies 
