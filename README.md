@@ -46,4 +46,4 @@ Project is created with:
 * PsychoPy3: version v2020.2.4
 * RStudio: version 2022.12.0.353
 * Python 3
-* Matlab version 2020b
+* Matlab: version 2020b
