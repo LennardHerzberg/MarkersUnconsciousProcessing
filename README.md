@@ -17,9 +17,9 @@ The study investigates on the topic of conscious and unconsonscious processing o
 #### Authors 
 Lennard Herzberg 1, Julia Schräder 1,2, Han-Gue Jo 3, Ute Habel 1,2, Lisa Wagels 1,2
 
-* <sub> 1 Department of Psychiatry, Psychotherapy and Psychosomatics, Medical Faculty, Uniklinik RWTH Aachen, Pauwelsstraße 30, 52074 Aachen, Germany <sub/>
-* <sub> 2 Institue of Neuroscience and medicine: JARA-Institure Brain Structure Function Relationship (INM 10), Research Center Jülich, Jülich, Germany <sub/>
-* <sub> 3 School of Computer Information and Communication Engineering, Kunsan National University, Gunsan, Korea <sub/>
+* <sub> 1 Department of Psychiatry, Psychotherapy and Psychosomatics, Faculty of Medicine, RWTH Aachen, Pauwelsstraße 30, 52074 Aachen, Germany <sub/>
+* <sub> 2 Institue of Neuroscience and Medicine: JARA-Institure Brain Structure Function Relationship (INM 10), Research Center Jülich, Jülich, Germany <sub/>
+* <sub> 3 School of Software, Kunsan National University, 588 Daehak-ro, 54150 Gunsan, South Korea <sub/>
 
 
 #### OSF
