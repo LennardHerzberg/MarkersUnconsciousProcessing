@@ -103,9 +103,9 @@ options('contrasts')
 options(contrasts = c("contr.sum", "contr.poly"))
 
 # einfache Regression
-ModelQN400.einfach <- lm(N400 ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, data = data)
-summary(ModelQN400.einfach)
-anova(ModelQN400.einfach)
+Model8 <- lm(N400 ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, data = data)
+summary(Model8)
+anova(Model8)
 
 # LPP ####
 
@@ -210,6 +210,6 @@ options('contrasts')
 options(contrasts = c("contr.sum", "contr.poly"))
 
 # einfache Regression
-ModelQLPP.einfach <- lm(LPP ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, data = data)
-summary(ModelQLPP.einfach)
-anova(ModelQLPP.einfach)
+Model9 <- lm(LPP ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, data = data)
+summary(Model9)
+anova(Model9)
