@@ -103,7 +103,7 @@ isSingular(ModelT.normal, tol = 1e-4)
 
 anova(Model1, ModelT.normal)
 
-# Model 1 (ohne Interaktionseffekt), da AIC/BIC besser als Model 4 (mit Interaktion)
+# Model 1 (ohne Interaktionseffekt), da AIC/BIC besser als Model T (mit Interaktion)
 library(effects)
 effectsmodel1<-allEffects(Model1)
 plot(effectsmodel1)
