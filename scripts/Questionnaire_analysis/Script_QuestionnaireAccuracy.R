@@ -106,44 +106,6 @@ options(contrasts = c("contr.sum", "contr.poly"))
 
 # Model quasipoisson
 library(MASS)
-ModelAQ.quasip <- glmmPQL(accuracy ~ TMT + BVAQ + MWTB +  WMS_for + WMS_back, random = ~ 1|subName,
+Model10 <- glmmPQL(accuracy ~ TMT + BVAQ + MWTB +  WMS_for + WMS_back, random = ~ 1|subName,
                   family = quasipoisson(link = "log") , data = data)
-summary(ModelAQ.quasip)
-
-
-# unused ####
-
-library(MASS)
-glm.accuQ <- glm(accuracy ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, family = poisson())
-summary(glm.accuQ)
-anova(glm.accuQ)
-
-
-# einfache Regression
-# Normal Verteilung 
-ModelQAcc.einfach <- lm(accuracy ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, data = data)
-summary(ModelQAcc.einfach)
-anova(ModelQAcc.einfach)
-
-# Normal Verteilung 
-ModelQAcc.normal <- lmer(accuracy ~ TMT + BVAQ + MWTB + WMS_for + WMS_back + (1|subName), data = data)
-summary(ModelQAcc.normal)
-anova(ModelQAcc.normal)
-
-
-# Weibull Verteilung -> glmer, family=Weibull
-ModelQAcc.weibull <- glmer(accuracy ~ TMT + BVAQ + MWTB + WMS_for + WMS_back + (1|subName), family = weibull, data = data)
-summary(ModelQAcc.weibull)
-anova(ModelQAcc.weibull)
-
-
-# Weibull??
-mod <- gamlss(accuracy ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, family = WEI, data = data)
-plot(mod)
-rm(mod)
-
-# Repeated measures ANOVA
-model <- aov(accuracy ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, data = data)
-
-# Summary of ANOVA
-summary(model)
+summary(Model10)
