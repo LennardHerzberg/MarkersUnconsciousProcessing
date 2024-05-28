@@ -94,66 +94,33 @@ options('contrasts')
 options(contrasts = c("contr.sum", "contr.poly"))
 
 # lmer Model 
-Model1 <- lmer(N400 ~ congruence + emotion + mask + location + (1|subName),
+Model3 <- lmer(N400 ~ congruence + emotion + mask + location + (1|subName),
                                    data = data)
-summary(Model1)
-anova(Model1)
+summary(Model3)
+anova(Model3)
 
 library(effects)
-effectsmodelN400<-allEffects(Model1)
+effectsmodelN400<-allEffects(Model3)
 plot(effectsmodelN400)
 print(effectsmodelN400)
 
-ModelN400PairwiseE <- emmeans(Model1, pairwise ~ emotion)
-ModelN400PairwiseL <- emmeans(Model1, pairwise ~ location)
-ModelN400PairwiseM <- emmeans(Model1, pairwise ~ mask)
-ModelN400PairwiseC <- emmeans(Model1, pairwise ~ congruence)
+ModelN400PairwiseE <- emmeans(Model3, pairwise ~ emotion)
+ModelN400PairwiseL <- emmeans(Model3, pairwise ~ location)
+ModelN400PairwiseM <- emmeans(Model3, pairwise ~ mask)
+ModelN400PairwiseC <- emmeans(Model3, pairwise ~ congruence)
 
 ModelN400PairwiseE
 ModelN400PairwiseL
 ModelN400PairwiseM 
 ModelN400PairwiseC
 
-effect_congruence <- Effect("congruence", Model1)
-effect_emotion <- Effect("emotion", Model1)
-effect_mask <- Effect("mask", Model1)
-effect_location <- Effect("location", Model1)
+effect_congruence <- Effect("congruence", Model3)
+effect_emotion <- Effect("emotion", Model3)
+effect_mask <- Effect("mask", Model3)
+effect_location <- Effect("location", Model3)
 plot(effect_congruence)
 plot(effect_emotion)
 plot(effect_mask)
 plot(effect_location)
 
-anova(Model1, type=2, ddf="Kenward-Roger")
-
-# unused ####
-ModelN400.test <- lmer(N400 ~ congruence + emotion + emotion*congruence + emotion*mask + gender + mask + location + age + (1|subName),
-                         data = data)
-summary(ModelN400.test)
-anova(ModelN400.test)
-
-anova(ModelN400.normal,ModelN400.test)
-
-ModelN400.normal <- lmer(N400 ~ congruence + emotion + gender + mask + location + age + (1|subName),
-                         data = data)
-summary(ModelN400.normal)
-anova(ModelN400.normal)
-
-library(effects)
-effectsmodelN400<-allEffects(ModelN400.normal)
-plot(effectsmodelN400)
-print(effectsmodelN400)
-
-ModelN400PairwiseE <- emmeans(ModelN400.normal, pairwise ~ emotion)
-ModelN400PairwiseG <- emmeans(ModelN400.normal, pairwise ~ gender)
-ModelN400PairwiseL <- emmeans(ModelN400.normal, pairwise ~ location)
-ModelN400PairwiseM <- emmeans(ModelN400.normal, pairwise ~ mask)
-ModelN400PairwiseC <- emmeans(ModelN400.normal, pairwise ~ congruence)
-
-ModelN400PairwiseE
-ModelN400PairwiseG
-ModelN400PairwiseL
-ModelN400PairwiseM 
-ModelN400PairwiseC
-
-# Type II ANOVA
-anova(ModelN400.normal, type=2, ddf="Kenward-Roger")
+anova(Model3, type=2, ddf="Kenward-Roger")
