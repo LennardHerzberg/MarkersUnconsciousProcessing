@@ -16,8 +16,9 @@ library(apaTables) # create American Psychological Association Style Tables
 library(effects)   # effects displays for linear models 
 library(carData)  # companion to applied regression datasets 
 
-library(haven)
-data <- read_sav("~/Desktop/Doktorarbeit/EmoCon/Auswertung/Tabellen/Primer/Primer_N170_leftright.sav")
+
+library(readxl)
+data <- read_excel("Desktop/LPP_ges.xlsx")
 View(data)
 
 subName <- data$subName
@@ -26,16 +27,16 @@ gender <- data$gender
 mask <- data$mask
 emotion <- data$emotion
 condition <- data$condition
-side <- data$side
+congruence <-data$congruence
 
 # Grafiken plotten ####
 
-data$N170 <- as.numeric(data$N170)
+data$LPP <- as.numeric(data$LPP)
 
 #Plot Density
-plot(density(data$N170),main="Density estimate of data")
+plot(density(data$LPP),main="Density estimate of data")
 
-x <- data$N170+100
+x <- data$LPP+100
 den <- density(x)
 dat <- data.frame(x = den$x, y = den$y) 
 
@@ -62,12 +63,18 @@ ppcomp(list(fit.weibull, fit.gamma, fit.normal), fitcol = c("red", "blue","green
 summary(data) 
 
 #Define variables
-data$condition[data$condition == "happy_unconscious"] <- 1
-data$condition[data$condition == "neutral_unconscious"] <- 2
-data$condition[data$condition == "sad_unconscious"] <- 3
-data$condition[data$condition == "happy_conscious"] <- 4
-data$condition[data$condition == "neutral_conscious"] <- 5
-data$condition[data$condition == "sad_conscious"] <- 6
+data$condition[data$condition == "happy_strong_congruent"] <- 1
+data$condition[data$condition == "neutral_strong_congruent"] <- 2
+data$condition[data$condition == "sad_strong_congruent"] <- 3
+data$condition[data$condition == "happy_strong_incongruent"] <- 4
+data$condition[data$condition == "neutral_strong_incongruent"] <- 5
+data$condition[data$condition == "sad_strong_incongruent"] <- 6
+data$condition[data$condition == "happy_weak_congruent"] <- 7
+data$condition[data$condition == "neutral_weak_congruent"] <- 8
+data$condition[data$condition == "sad_weak_congruent"] <- 9
+data$condition[data$condition == "happy_weak_incongruent"] <- 10
+data$condition[data$condition == "neutral_weak_incongruent"] <- 11
+data$condition[data$condition == "sad_weak_incongruent"] <- 12
 
 #Factorise variables
 data$subName           <- factor(data$subName, ordered = FALSE)
@@ -75,62 +82,57 @@ data$gender           <- factor(data$gender, ordered = FALSE)
 data$mask           <- factor(data$mask, ordered = FALSE)
 data$emotion           <- factor(data$emotion, ordered = FALSE)
 data$condition           <- factor(data$condition, ordered = FALSE)
-data$side           <- factor(data$side, ordered = FALSE)
+data$congruence      <- factor(data$congruence, ordered = FALSE)
+
 
 summary(data)
 
 options('contrasts')
 
-#Use type III analysis of variance!!! (Laut Thilo ist das wichtig)
+#Use type III analysis of variance!!! (Laut Thilo ist es wichtig, dass man das so macht)
 options(contrasts = c("contr.sum", "contr.poly"))
 
+# lmer
+ModelLPP.normal <- lmer(LPP ~ congruence + emotion + gender + mask + age + (1|subName),
+                         data = data)
+summary(ModelLPP.normal)
+anova(ModelLPP.normal)
 
-# lmer kein Interaktionseffekt bei mask (statt correlated random slope und intercept nur noch random intercept)
-Model2.normal <- lmer(N170 ~ mask + emotion + gender + side + age + (1|subName),
-                      data = data)
+Model4 <- lmer(LPP ~ congruence + emotion + mask + (1|subName),
+                        data = data)
+summary(Model4)
+anova(Model4)
 
-summary(Model2.normal)
-anova(Model2.normal)
 
-isSingular(Model2.normal, tol=1e-4)
+# alternatives Modell
+Modeltest.normal <- lmer(LPP ~ emotion*congruence + congruence*mask + gender  + age + (1|subName),
+                             data = data)
+summary(Modeltest.normal)
+anova(Modeltest.normal)
 
-# lmer Interaktionseffekt bei mask 
-Model5.normal <- lmer(N170 ~ mask*emotion + gender + side + age + (1|subName),
-                      data = data)
+anova(ModelLPP.normal, Modeltest.normal)
 
-summary(Model5.normal)
-anova(Model5.normal)
-
-isSingular(Model5.normal, tol = 1e-4)
-
-anova(Model2.normal, Model5.normal)
-
-# Model 2 (ohne Interaktionseffekt), da AIC/BIC besser als Model 5 (mit Interaktion)
 library(effects)
-effectsmodel2<-allEffects(Model2.normal)
-plot(effectsmodel2)
-print(effectsmodel2)
+effectsmodelLPP<-allEffects(ModelLPP.normal)
+plot(effectsmodelLPP)
+print(effectsmodelLPP)
 
-Model2PairwiseE <- emmeans(Model2.normal, pairwise ~ emotion)
-Model2PairwiseG <- emmeans(Model2.normal, pairwise ~ gender)
-Model2PairwiseS <- emmeans(Model2.normal, pairwise ~ side)
-Model2PairwiseM <- emmeans(Model2.normal, pairwise ~ mask)
-
-Model2PairwiseE
-Model2PairwiseG
-Model2PairwiseS
-Model2PairwiseM 
-
-effect_gender <- Effect("gender", Model2.normal)
-effect_mask <- Effect("mask", Model2.normal)
-effect_side <- Effect("side", Model2.normal)
-effect_age <- Effect("age", Model2.normal)
-effect_emotion <- Effect("emotion", Model2.normal)
-plot(effect_gender)
-plot(effect_mask)
-plot(effect_side)
-plot(effect_age)
+effect_congruence <- Effect("congruence", ModelLPP.normal)
+effect_emotion <- Effect("emotion", ModelLPP.normal)
+effect_mask <- Effect("mask", ModelLPP.normal)
+plot(effect_congruence)
 plot(effect_emotion)
+plot(effect_mask)
+
+ModelLPPPairwiseE <- emmeans(ModelLPP.normal, pairwise ~ emotion)
+ModelLPPPairwiseG <- emmeans(ModelLPP.normal, pairwise ~ gender)
+ModelLPPPairwiseM <- emmeans(ModelLPP.normal, pairwise ~ mask)
+ModelLPPPairwiseC <- emmeans(ModelLPP.normal, pairwise ~ congruence)
+
+ModelLPPPairwiseE
+ModelLPPPairwiseG
+ModelLPPPairwiseM 
+ModelLPPPairwiseC
 
 # Type II ANOVA
-anova(Model2.normal, type=2, ddf="Kenward-Roger")
+anova(Model4, type=2, ddf="Kenward-Roger")

@@ -119,6 +119,13 @@ Model1PairwiseG
 Model1PairwiseS
 Model1PairwiseM 
 
+effect_gender <- Effect("gender", Model1.normal)
+effect_mask <- Effect("mask", Model1.normal)
+effect_side <- Effect("side", Model1.normal)
+plot(effect_gender)
+plot(effect_mask)
+plot(effect_side)
+
 # Type II ANOVA
 anova(Model1.normal, type=2, ddf="Kenward-Roger")
 anova(Model4.normal, type=2, ddf="Kenward-Roger")
