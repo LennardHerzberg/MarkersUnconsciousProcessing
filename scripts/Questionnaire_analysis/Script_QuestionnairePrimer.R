@@ -96,17 +96,10 @@ options('contrasts')
 options(contrasts = c("contr.sum", "contr.poly"))
 
 # einfache Regression
-ModelQP100.einfach <- lm(P100 ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, data = data)
-summary(ModelQP100.einfach)
-anova(ModelQP100.einfach)
+Model6 <- lm(P100 ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, data = data)
+summary(Model6)
+anova(Model6)
 
-
-
-# unused
-# lmer
-ModelQP100.normal <- lmer(P100 ~ TMT + BVAQ + MWTB + WMS_for + WMS_back + (1|subName), data = data)
-summary(ModelQP100.normal)
-anova(ModelQP100.normal)
 
 # N170 ####
 
@@ -206,6 +199,6 @@ options('contrasts')
 options(contrasts = c("contr.sum", "contr.poly"))
 
 # einfache Regression 
-ModelQN170.einfach <- lm(N170 ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, data = data)
-summary(ModelQN170.einfach)
-anova(ModelQN170.einfach)
+Model7 <- lm(N170 ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, data = data)
+summary(Model7)
+anova(Model7)
