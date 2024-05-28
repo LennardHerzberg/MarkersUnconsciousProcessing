@@ -95,7 +95,7 @@ anova(Model2)
 isSingular(Model2, tol=1e-4)
 
 # lmer Interaktionseffekt bei mask 
-Model5.normal <- lmer(N170 ~ mask*emotion + gender + side + age + (1|subName),
+ModelT.normal <- lmer(N170 ~ mask*emotion + gender + side + age + (1|subName),
                       data = data)
 
 summary(ModelT.normal)
