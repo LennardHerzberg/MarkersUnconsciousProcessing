@@ -86,46 +86,46 @@ options(contrasts = c("contr.sum", "contr.poly"))
 
 
 # lmer kein Interaktionseffekt bei mask (statt correlated random slope und intercept nur noch random intercept)
-Model2.normal <- lmer(N170 ~ mask + emotion + gender + side + age + (1|subName),
+Model2 <- lmer(N170 ~ mask + emotion + gender + side + age + (1|subName),
                       data = data)
 
-summary(Model2.normal)
-anova(Model2.normal)
+summary(Model2)
+anova(Model2)
 
-isSingular(Model2.normal, tol=1e-4)
+isSingular(Model2, tol=1e-4)
 
 # lmer Interaktionseffekt bei mask 
 Model5.normal <- lmer(N170 ~ mask*emotion + gender + side + age + (1|subName),
                       data = data)
 
-summary(Model5.normal)
-anova(Model5.normal)
+summary(ModelT.normal)
+anova(ModelT.normal)
 
-isSingular(Model5.normal, tol = 1e-4)
+isSingular(ModelT.normal, tol = 1e-4)
 
-anova(Model2.normal, Model5.normal)
+anova(Model2, ModelT.normal)
 
-# Model 2 (ohne Interaktionseffekt), da AIC/BIC besser als Model 5 (mit Interaktion)
+# Model 2 (ohne Interaktionseffekt), da AIC/BIC besser als Model T (mit Interaktion)
 library(effects)
-effectsmodel2<-allEffects(Model2.normal)
+effectsmodel2<-allEffects(Model2)
 plot(effectsmodel2)
 print(effectsmodel2)
 
-Model2PairwiseE <- emmeans(Model2.normal, pairwise ~ emotion)
-Model2PairwiseG <- emmeans(Model2.normal, pairwise ~ gender)
-Model2PairwiseS <- emmeans(Model2.normal, pairwise ~ side)
-Model2PairwiseM <- emmeans(Model2.normal, pairwise ~ mask)
+Model2PairwiseE <- emmeans(Model2, pairwise ~ emotion)
+Model2PairwiseG <- emmeans(Model2, pairwise ~ gender)
+Model2PairwiseS <- emmeans(Model2, pairwise ~ side)
+Model2PairwiseM <- emmeans(Model2, pairwise ~ mask)
 
 Model2PairwiseE
 Model2PairwiseG
 Model2PairwiseS
 Model2PairwiseM 
 
-effect_gender <- Effect("gender", Model2.normal)
-effect_mask <- Effect("mask", Model2.normal)
-effect_side <- Effect("side", Model2.normal)
-effect_age <- Effect("age", Model2.normal)
-effect_emotion <- Effect("emotion", Model2.normal)
+effect_gender <- Effect("gender", Model2)
+effect_mask <- Effect("mask", Model2)
+effect_side <- Effect("side", Model2)
+effect_age <- Effect("age", Model2)
+effect_emotion <- Effect("emotion", Model2)
 plot(effect_gender)
 plot(effect_mask)
 plot(effect_side)
@@ -133,4 +133,4 @@ plot(effect_age)
 plot(effect_emotion)
 
 # Type II ANOVA
-anova(Model2.normal, type=2, ddf="Kenward-Roger")
+anova(Model2, type=2, ddf="Kenward-Roger")
