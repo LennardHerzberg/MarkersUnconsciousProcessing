@@ -103,14 +103,14 @@ options(contrasts = c("contr.sum", "contr.poly"))
 
 # Model quasipoisson
 library(MASS)
-ModelP <- glmmPQL(accuracy ~ target_emotion + consciousness + congruence + age + gender, random = ~ 1|subName, 
+Model5 <- glmmPQL(accuracy ~ target_emotion + consciousness + congruence + age + gender, random = ~ 1|subName, 
                     family = quasipoisson(link = "log") , data = data)
-summary(ModelP)
-ModelP$contrasts
+summary(Model5)
+Model5$contrasts
 
 # Post hoc Tests
 library(effects)
-effectsmodel<-allEffects(ModelP)
+effectsmodel<-allEffects(Model5)
 plot(effectsmodel)
 print(effectsmodel)
 
@@ -126,101 +126,9 @@ Model1PairwiseS
 Model1PairwiseG 
 Model1PairwiseT
 
-effect_congruence <- Effect("congruence", ModelP)
-effect_emotion <- Effect("target_emotion", ModelP)
-effect_consciousness <- Effect("consciousness", ModelP)
+effect_congruence <- Effect("congruence", Model5)
+effect_emotion <- Effect("target_emotion", Model5)
+effect_consciousness <- Effect("consciousness", Model5)
 plot(effect_congruence)
 plot(effect_emotion)
 plot(effect_consciousness)
-
-
-# unused ####
-
-
-Model.glm <- glm(accuracy ~ target_emotion + congruency + gender + age + consciousness, 
-                 family = poisson())
-summary(Model.glm)
-anova(Model.glm)
-
-# Model Gamma 
-ModelG <- glmer(accuracy~ primer_emotion + consciousness + congruency + age + gender + (1|subName), 
-                 family = Gamma(link = "log") , data = data)
-summary(ModelG)
-
-# Model Weibull
-library(glmmTMB)
-ModelWei <- glmmTMB(accuracy~ primer_emotion + consciousness + congruency + age + gender + (1|subName), 
-                    family = genpois , data = data)
-
-
-weibull_family <- list(
-  family = "weibull",
-  link = "identity",  # Link-Funktion für die Weibull-Verteilung
-  theta.link = "log" # Link-Funktion für die Skalenparameter
-)
-
-new_vcov <- vcov.merMod(ModelAcc.family, use.hessian = FALSE)
-if (!is.positive.definite(new_vcov)) {
-  new_vcov <- nearPD(new_vcov)$mat
-}
-
-summary(ModelAcc.family, corr = FALSE, correlation = FALSE, vcov = new_vcov)
-
-# Test Model family 
-ModelAcc.family <- glmer(accuracy ~ primer_emotion + consciousness + congruency + age + gender + (1|subName), data = data)
-summary(ModelAcc.family)
-anova(ModelAcc.family)
-
-
-# Normal Verteilung
-ModelAcc.normal <- lmer(accuracy ~ primer_emotion + consciousness + target_emotion + age + gender + congruency + (1|subName), data = data)
-summary(ModelAcc.normal)
-anova(ModelAcc.normal)
-
-
-
-
-
-
-
-# Test einfache lineare Regression
-ModelAcc.einfach <- lm(accuracy ~ primer_emotion + consciousness + age + gender + congruency, data = data)
-summary(ModelAcc.einfach)
-anova(ModelAcc.einfach)
-
-
-# Weibull Verteilung 
-ModelAcc.weibull <- glmer(accuracy ~ primer_emotion + consciousness + target_emotion + age + gender + congruency + (1|subName), data = data)
-summary(ModelAcc.weibull)
-anova(ModelAcc.weibull)
-
-
-library(effects)
-effectsmodelAcc<-allEffects(ModelAcc.normal)
-plot(effectsmodelAcc)
-print(effectsmodelAcc)
-
-ModelAccPairwiseP <- emmeans(ModelAcc.normal, pairwise ~ primer_emotion)
-ModelAccPairwiseG <- emmeans(ModelAcc.normal, pairwise ~ gender)
-ModelAccPairwiseT <- emmeans(ModelAcc.normal, pairwise ~ target_emotion)
-ModelAccPairwiseC <- emmeans(ModelAcc.normal, pairwise ~ consciousness)
-
-ModelAccPairwiseP
-ModelAccPairwiseG
-ModelAccPairwiseT
-ModelAccPairwiseC 
-
-# Type II ANOVA
-anova(ModelAcc.normal, type=2, ddf="Kenward-Roger")
-
-
-# Repeated measures ANOVA
-model <- aov(accuracy ~ primer_emotion * consciousness + target_emotion + target_emotion * consciousness, data = data)
-
-# Summary of ANOVA
-summary(model)
-
-# Post-hoc tests (e.g., Tukey's HSD)
-library(TukeyHSD)
-posthoc <- TukeyHSD(model)
-print(posthoc)
