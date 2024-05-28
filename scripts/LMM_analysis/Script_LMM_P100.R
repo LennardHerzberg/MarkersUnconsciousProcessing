@@ -84,48 +84,47 @@ options(contrasts = c("contr.sum", "contr.poly"))
 
 
 # lmer kein Interaktionseffekt bei mask (statt correlated random slope und intercept nur noch random intercept)
-Model1.normal <- lmer(P100 ~ mask + emotion + gender + side + age + (1|subName),
+Model1 <- lmer(P100 ~ mask + emotion + gender + side + age + (1|subName),
                       data = data)
 
-summary(Model1.normal)
-anova(Model1.normal)
+summary(Model1)
+anova(Model1)
 
-isSingular(Model1.normal, tol=1e-4)
+isSingular(Model, tol=1e-4)
 
 # lmer Interaktionseffekt bei mask 
-Model4.normal <- lmer(P100 ~ mask*emotion + gender + side + age + (1|subName),
+ModelT.normal <- lmer(P100 ~ mask*emotion + gender + side + age + (1|subName),
                       data = data)
 
-summary(Model4.normal)
-anova(Model4.normal)
+summary(ModelT.normal)
+anova(ModelT.normal)
 
-isSingular(Model4.normal, tol = 1e-4)
+isSingular(ModelT.normal, tol = 1e-4)
 
-anova(Model1.normal, Model4.normal)
+anova(Model1, ModelT.normal)
 
 # Model 1 (ohne Interaktionseffekt), da AIC/BIC besser als Model 4 (mit Interaktion)
 library(effects)
-effectsmodel1<-allEffects(Model1.normal)
+effectsmodel1<-allEffects(Model1)
 plot(effectsmodel1)
 print(effectsmodel1)
 
-Model1PairwiseE <- emmeans(Model1.normal, pairwise ~ emotion)
-Model1PairwiseG <- emmeans(Model1.normal, pairwise ~ gender)
-Model1PairwiseS <- emmeans(Model1.normal, pairwise ~ side)
-Model1PairwiseM <- emmeans(Model1.normal, pairwise ~ mask) 
+Model1PairwiseE <- emmeans(Model1, pairwise ~ emotion)
+Model1PairwiseG <- emmeans(Model1, pairwise ~ gender)
+Model1PairwiseS <- emmeans(Model1, pairwise ~ side)
+Model1PairwiseM <- emmeans(Model1, pairwise ~ mask) 
 
 Model1PairwiseE
 Model1PairwiseG
 Model1PairwiseS
 Model1PairwiseM 
 
-effect_gender <- Effect("gender", Model1.normal)
-effect_mask <- Effect("mask", Model1.normal)
-effect_side <- Effect("side", Model1.normal)
+effect_gender <- Effect("gender", Model1)
+effect_mask <- Effect("mask", Model1)
+effect_side <- Effect("side", Model1)
 plot(effect_gender)
 plot(effect_mask)
 plot(effect_side)
 
 # Type II ANOVA
-anova(Model1.normal, type=2, ddf="Kenward-Roger")
-anova(Model4.normal, type=2, ddf="Kenward-Roger")
+anova(Model1, type=2, ddf="Kenward-Roger")
