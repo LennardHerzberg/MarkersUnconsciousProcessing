@@ -64,18 +64,18 @@ ppcomp(list(fit.weibull, fit.gamma, fit.normal), fitcol = c("red", "blue","green
 summary(data) 
 
 #Define variables
-data$condition[data$condition == "happy_strong_congruent"] <- 1
-data$condition[data$condition == "neutral_strong_congruent"] <- 2
-data$condition[data$condition == "sad_strong_congruent"] <- 3
-data$condition[data$condition == "happy_strong_incongruent"] <- 4
-data$condition[data$condition == "neutral_strong_incongruent"] <- 5
-data$condition[data$condition == "sad_strong_incongruent"] <- 6
-data$condition[data$condition == "happy_weak_congruent"] <- 7
-data$condition[data$condition == "neutral_weak_congruent"] <- 8
-data$condition[data$condition == "sad_weak_congruent"] <- 9
-data$condition[data$condition == "happy_weak_incongruent"] <- 10
-data$condition[data$condition == "neutral_weak_incongruent"] <- 11
-data$condition[data$condition == "sad_weak_incongruent"] <- 12
+data$condition[data$condition == "happy_unconscious_congruent"] <- 1
+data$condition[data$condition == "neutral_unconscious_congruent"] <- 2
+data$condition[data$condition == "sad_unconscious_congruent"] <- 3
+data$condition[data$condition == "happy_unconscious_incongruent"] <- 4
+data$condition[data$condition == "neutral_unconscious_incongruent"] <- 5
+data$condition[data$condition == "sad_unconscious_incongruent"] <- 6
+data$condition[data$condition == "happy_conscious_congruent"] <- 7
+data$condition[data$condition == "neutral_conscious_congruent"] <- 8
+data$condition[data$condition == "sad_conscious_congruent"] <- 9
+data$condition[data$condition == "happy_conscious_incongruent"] <- 10
+data$condition[data$condition == "neutral_conscious_incongruent"] <- 11
+data$condition[data$condition == "sad_conscious_incongruent"] <- 12
 
 #Factorise variables
 data$subName           <- factor(data$subName, ordered = FALSE)
