@@ -233,10 +233,3 @@ Erp_weak.weak_N400 = min(weak_N400Range);
 
 % Zum Plotten
 Erp_weak.times = EEG.times;
-
-
-
-
-
-
-
