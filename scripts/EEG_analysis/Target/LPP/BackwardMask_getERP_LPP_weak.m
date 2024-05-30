@@ -31,11 +31,11 @@ channel3 = 19;                                                              % ch
 
 % change to range within ERP !!
 % Range von 500ms-700ms nach Target für LPP sind --> 0,25*ms=datapoints. 
-% long primer presentation; onset target 416,7ms after onset primer 
+% long primer presentation; onset target 416,7ms after beginning epoch, 216.7ms after onset primer 
 range_min = 229;                                                            % 200ms Baseline+16,7ms Primer+150ms Mask(hier Zeitpunkt Target)+500ms = 916,7ms (229,175 datapoints) nach Epochenbeginn
 range_max = 279;                                                            % 200ms Baseline+16,7ms Primer+150ms Mask(hier Zeitpunkt Target)+700ms = 1116,7ms (279,175 datapoints) nach Epochenbeginn 
-%% HC
 
+%% HC
 % Run the script for HC participants
 subjects = healthy_subjects;
 
