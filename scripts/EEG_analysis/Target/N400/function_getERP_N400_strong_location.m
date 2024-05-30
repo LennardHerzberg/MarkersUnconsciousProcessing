@@ -233,6 +233,3 @@ Erp_strong.strong_N400 = min(strong_N400Range);
 
 % Zum Plotten
 Erp_strong.times = EEG.times;
-
-
-
