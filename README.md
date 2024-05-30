@@ -1,4 +1,4 @@
-# Identifying electrophysiological markers for unconscious emotion processing: an EEG data analysis 
+# Identifying electrophysiological markers for unconscious emotional face processing: an EEG data analysis 
   
 ## Table of contents
 * [General info](#general-info)
