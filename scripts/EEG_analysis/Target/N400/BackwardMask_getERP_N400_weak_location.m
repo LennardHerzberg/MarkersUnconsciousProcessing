@@ -37,11 +37,12 @@ channel3 = 19;                                                             % cha
 
 % change to range within ERP !!
 % Range von 280ms-500ms nach Target für N400 sind --> 0,25*ms=datapoints. 
-% long primer presentation; onset target 416,7ms after onset primer 
+% long primer presentation; onset target 416.7ms after beginning of epoch, 216.7ms after onset primer 
 range_min = 174;                                                            % 200ms Baseline+16,7ms Primer+150ms Mask(hier Zeitpunkt Target)+280ms = 696,7ms (174,175 datapoints) nach Epochenbeginn
 range_max = 229;                                                            % 200ms Baseline+16,7ms Primer+150ms Mask(hier Zeitpunkt Target)+500ms = 916,7ms (229,175 datapoints) nach Epochenbeginn 
-%% HC
 
+
+%% HC
 % Run the script for HC participants
 subjects = healthy_subjects;
 
