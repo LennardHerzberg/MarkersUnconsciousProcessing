@@ -108,7 +108,6 @@ n_s_strong_LPPRange = mean_n_s_strong(1,(range_min:range_max));
 %% Save LPP 
 
 Erp_strong.h_h_strong_LPP = max(h_h_strong_LPPRange);
-% Erp_strong.h_h_strong_datapoint = find(h_h_strong_LPPRange==Erp_strong.h_h_strong_LPP); %datapoint innerhalb der range
 Erp_strong.h_n_strong_LPP = max(h_n_strong_LPPRange);
 Erp_strong.h_s_strong_LPP = max(h_s_strong_LPPRange);
 
