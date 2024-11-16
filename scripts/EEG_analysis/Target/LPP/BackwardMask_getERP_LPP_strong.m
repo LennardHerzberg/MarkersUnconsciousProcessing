@@ -33,8 +33,8 @@ channel3 = 19;                                                              % ch
 % change to range within ERP (LPP)!!
 % Range from 500ms-700ms post target onset --> 0,25*ms=datapoints. 
 % short primer presentation (unconscious trials); onset target 283,4ms after beginning epoch, 83.4ms after onset primer 
-range_min = 196;                                                            % 200ms Baseline+16,7ms Primer+66,7ms Mask(target onset)+500ms = 783,4ms (195,85 datapoints) post begin of epoch 
-range_max = 246;                                                            % 200ms Baseline+16,7ms Primer+66,7ms Mask(target onset)+700ms = 983,4ms (245,85 datapoints) post begin of epoch 
+range_min = 196;                                                            % 200ms Baseline+16,7ms Primer+66,7ms Mask(target onset)+500ms = 783,4ms (195,85 datapoints) post beginning of epoch 
+range_max = 246;                                                            % 200ms Baseline+16,7ms Primer+66,7ms Mask(target onset)+700ms = 983,4ms (245,85 datapoints) post beginning of epoch 
 
 %% HC
 % Run the script for HC participants
