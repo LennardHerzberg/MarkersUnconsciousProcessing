@@ -36,7 +36,7 @@ MWTB <- data$MWTB
 WMS_for <- data$WMS_for
 WMS_back <- data$WMS_back
 
-# Grafiken plotten ####
+# Graphics ####
 
 data$accuracy <- as.numeric(data$accuracy)
 
@@ -101,7 +101,6 @@ summary(data)
 
 options('contrasts')
 
-#Use type III analysis of variance!!! (Laut Thilo ist das wichtig)
 options(contrasts = c("contr.sum", "contr.poly"))
 
 # Model quasipoisson
