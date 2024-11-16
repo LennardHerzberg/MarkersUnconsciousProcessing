@@ -38,7 +38,7 @@ MWTB <- data$MWTB
 WMS_for <- data$WMS_for
 WMS_back <- data$WMS_back
 
-# Grafiken plotten 
+# Graphics
 
 data$P100 <- as.numeric(data$P100)
 
@@ -95,7 +95,7 @@ options('contrasts')
 #Use type III analysis of variance!!! (Laut Thilo ist das wichtig)
 options(contrasts = c("contr.sum", "contr.poly"))
 
-# einfache Regression
+# simple Regression
 Model6 <- lm(P100 ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, data = data)
 summary(Model6)
 anova(Model6)
@@ -141,7 +141,7 @@ MWTB <- data$MWTB
 WMS_for <- data$WMS_for
 WMS_back <- data$WMS_back
 
-# Grafiken plotten 
+# Graphics
 
 data$N170 <- as.numeric(data$N170)
 
@@ -198,7 +198,7 @@ options('contrasts')
 #Use type III analysis of variance!!! (Laut Thilo ist das wichtig)
 options(contrasts = c("contr.sum", "contr.poly"))
 
-# einfache Regression 
+# simple Regression 
 Model7 <- lm(N170 ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, data = data)
 summary(Model7)
 anova(Model7)
