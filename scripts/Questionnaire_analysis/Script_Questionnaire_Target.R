@@ -38,7 +38,7 @@ MWTB <- data$MWTB
 WMS_for <- data$WMS_for
 WMS_back <- data$WMS_back
 
-# Grafiken plotten
+# Graphics
 
 data$N400 <- as.numeric(data$N400)
 
@@ -99,10 +99,9 @@ summary(data)
 
 options('contrasts')
 
-#Use type III analysis of variance!!! (Laut Thilo ist das wichtig)
 options(contrasts = c("contr.sum", "contr.poly"))
 
-# einfache Regression
+# simple Regression
 Model8 <- lm(N400 ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, data = data)
 summary(Model8)
 anova(Model8)
@@ -146,7 +145,7 @@ MWTB <- data$MWTB
 WMS_for <- data$WMS_for
 WMS_back <- data$WMS_back
 
-# Grafiken plotten 
+# Graphics
 
 data$LPP <- as.numeric(data$LPP)
 
@@ -206,10 +205,9 @@ summary(data)
 
 options('contrasts')
 
-#Use type III analysis of variance!!! (Laut Thilo ist das wichtig)
 options(contrasts = c("contr.sum", "contr.poly"))
 
-# einfache Regression
+# simple Regression
 Model9 <- lm(LPP ~ TMT + BVAQ + MWTB + WMS_for + WMS_back, data = data)
 summary(Model9)
 anova(Model9)
