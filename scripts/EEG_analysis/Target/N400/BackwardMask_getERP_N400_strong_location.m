@@ -1,9 +1,9 @@
-clear all                                                                   % workspace leeren
+clear all                                                                   % clear workspace 
 
-addpath ('/bif/software/MATLABTOOLS/eeglab2022.1')                          % pfad für eeglab
-eeglab; close;                                                              % eeg lab öffnen
+addpath ('/bif/software/MATLABTOOLS/eeglab2022.1')                          % path eeglab 
+eeglab; close;                                                              % open eeg lab 
 
-% definiere Datenpfad
+% define datapath 
 DataPath = ('/bif/storage/storage1/projects/emocon/Data/EEG');
 
 subjects = dir(fullfile(DataPath, '*_Remove_Bad_Intervals.mat')); 
@@ -36,10 +36,10 @@ channel2 = 8;                                                              % cha
 channel3 = 19;                                                             % channel Pz
 
 % change to range within ERP !!
-% Range von 280ms-500ms nach Target für N400 sind --> 0,25*ms=datapoints. 
-% short primer presentation; onset target 283.4ms after beginning of epoch, 83.4ms after onset primer 
-range_min = 141;                                                            % 200ms Baseline+16,7ms Primer+66,7ms Mask(hier Zeitpunkt Target)+280ms = 563,4ms (140,85 datapoints) nach Epochenbeginn
-range_max = 196;                                                            % 200ms Baseline+16,7ms Primer+66,7ms Mask(hier Zeitpunkt Target)+500ms = 783,4ms (195,85 datapoints) nach Epochenbeginn 
+% Range from 280ms-500ms post target onset --> 0,25*ms=datapoints. 
+% short primer presentation (unconscious trials); onset target 283.4ms after beginning of epoch, 83.4ms after onset primer 
+range_min = 141;                                                            % 200ms Baseline+16,7ms Primer+66,7ms Mask(target onset)+280ms = 563,4ms (140,85 datapoints) post beginning of epoch 
+range_max = 196;                                                            % 200ms Baseline+16,7ms Primer+66,7ms Mask(target onset)+500ms = 783,4ms (195,85 datapoints) nach post beginning of epoch 
 
 
 %% HC
@@ -57,9 +57,9 @@ for i = 1:length(subjects)
     Erp_strong = BackwardMask_getERP_Target_strong_location_N400(EEG,channel1,channel2,channel3,range_min,range_max);
 
     % To plot ERPs
-    erp_neutral_strong(i,:) = Erp_strong.n_strong;                          % neutral target, strong mask
-    erp_happy_strong(i,:) = Erp_strong.h_strong;                            % happy target, strong mask
-    erp_sad_strong(i,:) = Erp_strong.s_strong;                              % sad target, strong mask
+    erp_neutral_strong(i,:) = Erp_strong.n_strong;                          % neutral target, strong mask (unconscious)
+    erp_happy_strong(i,:) = Erp_strong.h_strong;                            % happy target, strong mask (unconscious)
+    erp_sad_strong(i,:) = Erp_strong.s_strong;                              % sad target, strong mask (unconscious)
 
     erp_strong(i,:) = Erp_strong.strong;
 
@@ -77,14 +77,14 @@ for i = 1:length(subjects)
     erp_s_n_strong(i,:) = Erp_strong.s_n_strong;
     erp_s_h_strong(i,:) = Erp_strong.s_h_strong;
     
-    erp_h_strong_con(i,:)  = Erp_strong.h_strong_congruent;                 % happy target, congruent strong 
-    erp_h_strong_incon(i,:) = Erp_strong.h_strong_incongruent;              % happy target, incongruent strong (primer neutral or sad)
-    erp_s_strong_con(i,:)   = Erp_strong.s_strong_congruent;                % sad target, congruent strong   
-    erp_s_strong_incon(i,:) = Erp_strong.s_strong_incongruent;              % sad target, incongruent strong (primer happy or neutral)
-    erp_n_strong_con(i,:)   = Erp_strong.n_strong_congruent;                % neutral target, congruent strong   
-    erp_n_strong_incon(i,:) = Erp_strong.n_strong_incongruent;              % neutral target, incongruent strong (primer happy or sad)   
+    erp_h_strong_con(i,:)  = Erp_strong.h_strong_congruent;                 % happy target, congruent strong (unconscious)
+    erp_h_strong_incon(i,:) = Erp_strong.h_strong_incongruent;              % happy target, incongruent strong (primer neutral or sad) (unconscious)
+    erp_s_strong_con(i,:)   = Erp_strong.s_strong_congruent;                % sad target, congruent strong (unconscious)
+    erp_s_strong_incon(i,:) = Erp_strong.s_strong_incongruent;              % sad target, incongruent strong (primer happy or neutral) (unconscious)
+    erp_n_strong_con(i,:)   = Erp_strong.n_strong_congruent;                % neutral target, congruent strong (unconscious)
+    erp_n_strong_incon(i,:) = Erp_strong.n_strong_incongruent;              % neutral target, incongruent strong (primer happy or sad) (unconscious)
     
- %% Tabelle 
+ %% create table
     
     j=1+(6*(i-1))    
     
