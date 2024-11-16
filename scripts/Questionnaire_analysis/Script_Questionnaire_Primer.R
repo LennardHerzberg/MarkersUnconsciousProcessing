@@ -195,7 +195,6 @@ summary(data)
 
 options('contrasts')
 
-#Use type III analysis of variance!!! (Laut Thilo ist das wichtig)
 options(contrasts = c("contr.sum", "contr.poly"))
 
 # simple Regression 
