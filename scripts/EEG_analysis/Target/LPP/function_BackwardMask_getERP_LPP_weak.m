@@ -1,11 +1,11 @@
 function Erp_weak = BackwardMask_getERP_Target_weak_LPP(EEG,channel1,channel2,channel3,range_min,range_max)
   
-% Create Epochs from -200ms to 1000 ms
+% Create Epochs from -200ms to 1200 ms
 EEG = pop_epoch( EEG, {  'h_h_weak'  'h_n_weak'  'h_s_weak'   'n_h_weak'   'n_n_weak'  'n_s_weak'  's_h_weak'  's_n_weak'   's_s_weak'  },...
-    [-0.2 1.2],  'epochinfo', 'yes'); % Epoche ist jetzt 1.4s lang 
+    [-0.2 1.2],  'epochinfo', 'yes'); % epoch is now 1.4s long 
 
 % Remove baseline
-EEG = pop_rmbase( EEG, [-200 0] ,[]); %200ms Baseline, gleiche wie bei Auswertung Primer 
+EEG = pop_rmbase( EEG, [-200 0] ,[]); %200ms Baseline, identical to primer analysis  
 
 % Find Epochs
 Epoch = extractfield(EEG.event,'epoch');
@@ -230,13 +230,5 @@ Erp_weak.n_weak_incongruent_LPP = max(n_weak_incongruent_LPPRange);
 Erp_weak.weak_LPP = max(weak_LPPRange);
 
 
-
-% Zum Plotten
+% to plot
 Erp_weak.times = EEG.times;
-
-
-
-
-
-
-
