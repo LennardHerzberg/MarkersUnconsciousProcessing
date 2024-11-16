@@ -30,7 +30,7 @@ condition <- data$condition
 side <- data$location
 congruence <-data$congruence
 
-# Grafiken plotten ####
+# Graphics ####
 
 data$N400 <- as.numeric(data$N400)
 
@@ -90,7 +90,6 @@ summary(data)
 
 options('contrasts')
 
-#Use type III analysis of variance!!! (Laut Thilo ist es wichtig, dass man das so macht)
 options(contrasts = c("contr.sum", "contr.poly"))
 
 # lmer Model 
