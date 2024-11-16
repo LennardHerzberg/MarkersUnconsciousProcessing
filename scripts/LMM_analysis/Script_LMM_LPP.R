@@ -29,7 +29,7 @@ emotion <- data$emotion
 condition <- data$condition
 congruence <-data$congruence
 
-# Grafiken plotten ####
+# Graphics ####
 
 data$LPP <- as.numeric(data$LPP)
 
@@ -89,7 +89,6 @@ summary(data)
 
 options('contrasts')
 
-#Use type III analysis of variance!!! (Laut Thilo ist es wichtig, dass man das so macht)
 options(contrasts = c("contr.sum", "contr.poly"))
 
 # lmer
