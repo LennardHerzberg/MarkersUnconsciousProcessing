@@ -2,10 +2,10 @@ function Erp_strong = BackwardMask_getERP_Target_strong_location_N400(EEG,channe
   
 % Create Epochs from -200ms to 1000 ms
 EEG = pop_epoch( EEG, {  'h_h_strong'  'h_n_strong'   'h_s_strong'   'n_h_strong'   'n_n_strong'  'n_s_strong'  's_h_strong'  's_n_strong'   's_s_strong'  },...
-    [-0.2  1],  'epochinfo', 'yes'); %-Epoche ist jetzt 1.2s lang
+    [-0.2  1],  'epochinfo', 'yes'); % epoch is now 1.2s long
 
 % Remove baseline
-EEG = pop_rmbase( EEG, [-200   0] ,[]); % 200ms Baseline, gleiche wie bei Auswertung Primer 
+EEG = pop_rmbase( EEG, [-200   0] ,[]); % 200ms Baseline, identical to primer analyis 
 
 % Find Epochs
 Epoch = extractfield(EEG.event,'epoch');
@@ -230,6 +230,5 @@ Erp_strong.n_strong_incongruent_N400 = min(n_strong_incongruent_N400Range);
 Erp_strong.strong_N400 = min(strong_N400Range);
 
 
-
-% Zum Plotten
+% to plot 
 Erp_strong.times = EEG.times;
