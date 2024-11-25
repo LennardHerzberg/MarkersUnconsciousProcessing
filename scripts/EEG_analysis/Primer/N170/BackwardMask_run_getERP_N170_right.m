@@ -1,9 +1,9 @@
-clear all                                                                   % workspace leeren
+clear all                                                                   % clear workspace 
 
-addpath ('/bif/software/MATLABTOOLS/eeglab2022.1')                          % pfad für eeglab
-eeglab                                                                      % eeg lab öffnen
+addpath ('/bif/software/MATLABTOOLS/eeglab2022.1')                          % path eeglab 
+eeglab                                                                      % open eeglab 
 
-% definiere Datenpfad
+% define datapath 
 DataPath = ('/bif/storage/storage1/projects/emocon/Data/EEG');
 
 subjects = dir(fullfile(DataPath, '*Remove_Bad_Intervals.mat')); 
@@ -27,16 +27,16 @@ channel1 = 60;                                                              % ch
 channel2 = 16;                                                              % channel P8
 
 % Range for N170 within ERP...
-% Range von 150ms-200ms für N170 sind --> 0,25*ms=datapoints. 
-range_min = 88;                                                             % 200ms Baseline+150ms=350ms(87,5 datapoints)
-range_max = 100;                                                            % 200+200=400(100 datapoints)
+% Range from 150-200ms for N170 --> 0,25*ms=datapoints. 
+range_min = 88;                                                             % 200ms Baseline + 150ms = 350ms (87,5 datapoints)
+range_max = 100;                                                            % 200 ms Baseline + 200ms = 400ms (100 datapoints)
 
 subjects = healthy_subjects; 
 
 i=1;
 
 for i = 1:length(subjects)
-    %% Datenset einlesen
+    %% read dataset 
     FileName = subjects(i).name;
     filePath = fullfile(DataPath, FileName);
     EEG = pop_loadbva(filePath);                                            % read in EEG data
@@ -55,9 +55,13 @@ for i = 1:length(subjects)
     erp_conscious(i,:) = Erp.conscious; 
     erp_unconscious(i,:) = Erp.unconscious; 
     
+%     erp_N170_strong(i,:) = Erp.strong; 
+%     erp_N170_weak(i,:) = Erp.weak; 
+
+    
     erp_times = Erp.times;
     
-      %% Tabelle erstellen 
+      %% create table 
  
     j=1+(6*(i-1))    
     
@@ -74,12 +78,12 @@ for i = 1:length(subjects)
     dataframe{n,1}= subName;
     dataframe{o,1}= subName;
     
-    dataframe{j,2}= 'bewusst';
-    dataframe{k,2}= 'bewusst';
-    dataframe{l,2}= 'bewusst';
-    dataframe{m,2}= 'unbewusst';
-    dataframe{n,2}= 'unbewusst';
-    dataframe{o,2}= 'unbewusst';
+    dataframe{j,2}= 'conscious';
+    dataframe{k,2}= 'conscious';
+    dataframe{l,2}= 'conscious';
+    dataframe{m,2}= 'unconscious';
+    dataframe{n,2}= 'unconscious';
+    dataframe{o,2}= 'unconscious';
     
     dataframe{j,3}= 'happy';
     dataframe{k,3}= 'sad';
@@ -88,83 +92,36 @@ for i = 1:length(subjects)
     dataframe{n,3}= 'sad';
     dataframe{o,3}= 'neutral';
     
-    dataframe{j,5}= 'happy_bewusst';
+    dataframe{j,5}= 'happy_conscious';
     dataframe{j,4}= Erp.h_weak_N170;
 
-    dataframe{k,5}= 'sad_bewusst';
+    dataframe{k,5}= 'sad_conscious';
     dataframe{k,4}= Erp.s_weak_N170;
     
-    dataframe{l,5}= 'neutral_bewusst'
+    dataframe{l,5}= 'neutral_conscious'
     dataframe{l,4}= Erp.n_weak_N170;
     
-    dataframe{m,5}= 'happy_unbewusst'
+    dataframe{m,5}= 'happy_unconscious'
     dataframe{m,4}= Erp.h_strong_N170;
     
-    dataframe{n,5}='sad_unbewusst'
+    dataframe{n,5}='sad_unconscious'
     dataframe{n,4}= Erp.s_strong_N170;
     
-    dataframe{o,5}='neutral_unbewusst'
+    dataframe{o,5}='neutral_unconscious'
     dataframe{o,4}= Erp.n_strong_N170; 
         
 end
 
-%% Excel Tabelle aus dataframe erstellen 
-% füge Kopfzeile hinzu 
+%% create table with header 
+% add header 
 header = {'subName','mask','emotion','N170_right','condition'};
 
 dataframe = [header; dataframe]; 
 
-% Erstellt excel Tabelle aus dataframe
+% save table in excel 
 % writecell(dataframe,'/bif/storage/storage1/projects/emocon/Lennard/Primer_N170_right_final.xlsx');
 
-%% Grafik plotten
-% Unbewusst figure gesamt 
-% figure,
-% plot(erp_times,mean(erp_neutral_strong,1),'b'); hold on;
-% plot(erp_times,mean(erp_happy_strong,1),'r');
-% plot(erp_times,mean(erp_sad_strong,1),'k'); hold off;
-% 
-% legend('neutral','happy','sad','Location','northeast');
-% legend('boxoff');  box off
-% xlim([-200 800]); xlabel('Time(ms)'); ylabel('Amplitude (uV)'); grid off;
-% ylim([-3 10])
-% 
-% % Unbewusst figure Ausschnitt 
-% % figure,
-% % plot(erp_times,mean(erp_neutral_strong,1),'b'); hold on;
-% % plot(erp_times,mean(erp_happy_strong,1),'r');
-% % plot(erp_times,mean(erp_sad_strong,1),'k'); hold off;
-% % 
-% % legend('neutral','happy','sad','Location','northeast');
-% % legend('boxoff'); title(['P100 and N170, ', 'strongly masked trials, ', 'PO8+P8']);  box off
-% % xlim([-200 800]); grid off;
-% % ylim([-3 10])
-% 
-% 
-% 
-% % Bewusst figure gesamt 
-% figure,
-% plot(erp_times,mean(erp_neutral_weak,1),'b'); hold on;
-% plot(erp_times,mean(erp_happy_weak,1),'r');
-% plot(erp_times,mean(erp_sad_weak,1),'k'); hold off;
-% 
-% legend('neutral','happy','sad','Location','northeast');
-% legend('boxoff');  box off
-% xlim([-200 800]);  xlabel('Time(ms)'); ylabel('Amplitude (uV)'); grid off;
-% ylim([-3 10])
-
-% % Bewusst figure Ausschnitt 
-% figure,
-% plot(erp_times,mean(erp_neutral_weak,1),'b'); hold on;
-% plot(erp_times,mean(erp_happy_weak,1),'r');
-% plot(erp_times,mean(erp_sad_weak,1),'k'); hold off;
-% 
-% legend('neutral','happy','sad','Location','northeast');
-% legend('boxoff'); title(['P100 and N170, ', 'weakly masked trials, ', 'PO8+P8']);  box off
-% xlim([-200 800]); grid off;
-% ylim([-3 10])
-
-%% Variance unconscious
+%% plot graph with variance 
 % unconscious -> strong mask 
 figure, 
 %SD for happy_strong 
@@ -211,7 +168,6 @@ ylim([-6 16])
 set(gcf,'Position',[15 15 750 600])
 print(gcf, '-dtiff', 'emotions.png');
 
-%% Variance conscious
 % conscious -> weak mask 
 figure, 
 % SD for happy_weak 
@@ -235,6 +191,7 @@ x2 = [x, fliplr(x)];
 inBetween = [curve1, fliplr(curve2)];
 fill(x2, inBetween, [1 0.8 0],'LineStyle',"none",'FaceAlpha',.26); hold on;
 plot(x, mean(erp_neutral_weak,1),'Color',[1 1 0],'LineWidth',1.5,'LineStyle','--'); 
+% plot(x, mean(erp_neutral_weak,1),'Color',[1 0.85 0],'LineWidth',1.5,'LineStyle','--'); 
 
 % SD for sad_weak 
 y = mean(erp_sad_weak,1);
@@ -252,29 +209,19 @@ ax.XAxisLocation = 'origin';
 ax.YAxisLocation = 'origin';
 ax.FontSize = 12;
 legend('Happy SD','Happy','Neutral SD','Neutral','Sad SD','Sad','Location','northeast');
-legend('boxoff'); title(['Conscious Trials, ', 'P8/PO8']);  
+legend('boxoff'); 
+lgd = legend ('Happy SD','Happy','Neutral SD','Neutral','Sad SD','Sad','Location','northeast');
+set(lgd, 'Color', [1 1 1]);
+title(['Conscious Trials, ', 'P8/PO8']);  
 xlim([-250 820]); xlabel('Amplitude (uV)', 'Position', [0 15],'FontSize', 12); ylabel('Time(ms)', 'Position',[650 -1],'FontSize', 12); grid off; box off
 ylim([-6 16])
 set(gcf,'Position',[15 15 750 600])
 print(gcf, '-dtiff', 'emotions.png');
+
 %% Comparison conscious / unconscious
 
-% unconscious -> strong mask 
 figure, 
-% SD for happy_strong 
-y = mean(erp_unconscious,1);
-x = erp_times;
-std_dev = std(erp_unconscious);
-curve1 = y + std_dev;
-curve2 = y - std_dev;
-x2 = [x, fliplr(x)];
-inBetween = [curve1, fliplr(curve2)];
-% fill(x2, inBetween, [0 0.4470 0.7410],'LineStyle',"none",'FaceAlpha',.16); hold on;
-% plot(x, mean(erp_unconscious,1),'Color',[0 0.4470 0.7410],'LineWidth',1.5,'LineStyle','--'); 
-fill(x2, inBetween, [0.1 0.1 0.5],'LineStyle',"none",'FaceAlpha',.16); hold on;
-plot(x, mean(erp_conscious,1),'Color',[0 0 0.5],'LineWidth',1.5,'LineStyle','-'); 
-
-% SD for sad_strong 
+% SD for conscious
 y = mean(erp_conscious,1);
 x = erp_times;
 std_dev = std(erp_conscious);
@@ -283,7 +230,18 @@ curve2 = y - std_dev;
 x2 = [x, fliplr(x)];
 inBetween = [curve1, fliplr(curve2)];
 % fill(x2, inBetween, [0.3010 0.7450 0.9330],'LineStyle',"none",'FaceAlpha',.16); hold on;
-% plot(x, mean(erp_conscious,1),'Color',[0.3010 0.7450 0.9330],'LineWidth',1.5,'LineStyle','--'); 
+% plot(x, mean(erp_conscious,1),'Color',[0.3010 0.7450 0.9330],'LineWidth',1.5,'LineStyle','-'); 
+fill(x2, inBetween, [0.1 0.1 0.5],'LineStyle',"none",'FaceAlpha',.16); hold on;
+plot(x, mean(erp_conscious,1),'Color',[0 0 0.5],'LineWidth',1.5,'LineStyle','-'); 
+
+% SD for unconscious
+y = mean(erp_unconscious,1);
+x = erp_times;
+std_dev = std(erp_unconscious);
+curve1 = y + std_dev;
+curve2 = y - std_dev;
+x2 = [x, fliplr(x)];
+inBetween = [curve1, fliplr(curve2)];
 fill(x2, inBetween, [0 0.6 1],'LineStyle',"none",'FaceAlpha',.16); hold on;
 plot(x, mean(erp_unconscious,1),'Color', [0 0.6 1],'LineWidth',1.5,'LineStyle','-'); 
 
@@ -296,4 +254,27 @@ legend('boxoff'); title(['Conscious/Unconscious Trials, ', 'P8/PO8']);
 xlim([-250 820]); xlabel('Amplitude (uV)', 'Position', [0 15],'FontSize', 12); ylabel('Time(ms)', 'Position',[650 -1],'FontSize', 12); grid off; box off
 ylim([-5 16])
 set(gcf,'Position',[15 15 750 600])
-print(gcf, '-dtiff', '-r300', 'conscious_unconscious.png');
+print(gcf, '-dtiff', 'conscious_unconscious.png');
+
+%% plot graphics without variance 
+% figure unconscious 
+% figure,
+% plot(erp_times,mean(erp_neutral_strong,1),'b'); hold on;
+% plot(erp_times,mean(erp_happy_strong,1),'r');
+% plot(erp_times,mean(erp_sad_strong,1),'k'); hold off;
+% 
+% legend('neutral','happy','sad','Location','northeast');
+% legend('boxoff');  box off
+% xlim([-200 800]); xlabel('Time(ms)'); ylabel('Amplitude (uV)'); grid off;
+% ylim([-3 10])
+
+% figure conscious 
+% figure,
+% plot(erp_times,mean(erp_neutral_weak,1),'b'); hold on;
+% plot(erp_times,mean(erp_happy_weak,1),'r');
+% plot(erp_times,mean(erp_sad_weak,1),'k'); hold off;
+% 
+% legend('neutral','happy','sad','Location','northeast');
+% legend('boxoff');  box off
+% xlim([-200 800]); xlabel('Time(ms)'); ylabel('Amplitude (uV)'); grid off;
+% ylim([-3 10])
