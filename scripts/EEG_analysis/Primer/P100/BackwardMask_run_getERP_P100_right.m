@@ -29,7 +29,7 @@ channel2 = 16;                                                              % ch
 % Range for P100 within ERP...
 % Range from 80-130ms for P100 --> 0,25*ms=datapoints. 
 range_min = 70;                                                             % 200ms Baseline + 80ms = 280ms (70 datapoints)
-range_max = 83;                                                            % 200ms Baseline + 130ms = 330ms (82.5 datapoints)
+range_max = 83;                                                             % 200ms Baseline + 130ms = 330ms (82.5 datapoints)
 
 subjects = healthy_subjects;
 
